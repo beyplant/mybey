@@ -1,18 +1,31 @@
 #yplantfunctions#
 
-### 
+setwd("C:/Users/Joachim/Desktop/testdir")
+leafarea<-25000#in mm^2
+para<-c(1,2,3,4,5,6)#irrelavant leaf parameters
 
-
-useful code!
-  
-  update
-
-cat("kittens")
-
-cat("kittens")
-
-cat("kittens")
-
-cat("+1 more kitten")
-
-  ###
+###ellipse function###
+ellipse<-function(leafarea=value,length=value,NOL=value,para=c(value,value,value,value,value,value))
+{
+  (leafarea/NOL)/(pi*length)->a
+  w<-numeric()
+  for(i in 0:8){(i*a)/8->u#9
+                c(w,u)->w}
+  sort(w[1:8],decreasing=T)->w2#8
+  c(w,w2,-w[1:8],-w2[2:8])->x
+  v2<-numeric()
+  for(i in 1:8){
+    (1-(w[i]^2)/(a^2))*length^2->v3
+    v2<-c(v2,v3)}
+  v<-sqrt(v2)
+  c(-v)->x1
+  sort(-x1)->x2
+  c(x1,0,x2,-x1[2:8],0,-x2[1:7])->y
+  round(x,digits=1)->x
+  round(y+length,digits=1)->y
+  c("leaf",32,x,para)->x
+  c(NA,NA,y,NA,NA,NA,NA,NA,NA)->y
+  cbind(x,y)->L
+  write.table(L,file=paste("ellipse_",leafarea/100,"_nol=",NOL,"_lx=",LX,"_.l",sep=""),row.names=F,col.names=F,na="",quote=F) #l-filename here
+  return("file created")
+}
